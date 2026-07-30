@@ -1,0 +1,157 @@
+# Template Institucional - Meta Consultoria
+
+Este é um projeto [Next.js](https://nextjs.org) criado com [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app), modificado para servir como base escalável para sites institucionais utilizando Tailwind CSS v4 e TypeScript.
+
+## 1. Primeiros Passos
+
+Para iniciar o servidor de desenvolvimento:
+
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+# ou
+bun dev
+```
+
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+
+### Configuração de Ambiente
+
+Antes de rodar o projeto em produção, certifique-se de configurar o arquivo `.env.local`:
+
+1. Copie o exemplo: `cp .env.example .env.local`
+2. Preencha as chaves de e-mail e analytics conforme as instruções abaixo.
+
+## 2. Identidade Visual e Estilização
+
+A estilização do boilerplate é 100% centralizada no arquivo `src/app/globals.css`. Utilizando a abordagem CSS-first do Tailwind v4, nós eliminamos a necessidade de arquivos de configuração complexos de tema, tornando a inserção do manual da marca do cliente muito mais direta e à prova de falhas.
+
+### 2.1. O Sistema de Cores (Padrão HSL)
+
+Para garantir compatibilidade com a biblioteca de componentes e permitir variações de opacidade nativas do Tailwind (ex: utilizar `bg-primary/10` para fundos sutis), o projeto exige o uso do formato de cor **HSL (Hue, Saturation, Lightness)**.
+
+Note que os valores devem ser inseridos **sem** a função encapsuladora `hsl()` e **sem** vírgulas.
+
+Abra o arquivo `src/app/globals.css` e localize o bloco `:root`:
+
+```css
+:root {
+  /* Exemplo: Cor primária baseada no Verde da Meta Consultoria */
+  --primary: 164 29% 31%;
+
+  /* Cor do texto quando estiver em cima do background primário (geralmente branco ou preto) */
+  --primary-foreground: 0 0% 100%;
+}
+```
+
+**Instrução para os Consultores:**
+
+1. Pegue a cor primária do cliente em HEX (ex: Azul `#2563eb`).
+2. Utilize um conversor online de HEX para HSL (o resultado será algo como `HSL: 221, 83%, 53%`).
+3. Remova as vírgulas, os símbolos de grau e insira os três valores espaçados na variável:
+   `--primary: 221 83% 53%;`
+
+Ao alterar apenas a variável `--primary`, o site inteiro adaptará botões, links ativos, badges e ícones de destaque para a nova paleta da empresa.
+
+### 2.2. Raio de Borda Global (Border Radius)
+
+A identidade da marca dita a forma dos elementos. Marcas tradicionais (como escritórios de advocacia) costumam usar bordas mais rígidas, enquanto startups utilizam bordas mais suaves. O controle total disso está em uma única variável no `globals.css`:
+
+```css
+:root {
+  --radius: 0.5rem; /* Padrão (8px) */
+}
+```
+
+- Para um design sério/flat: altere para `0rem`.
+- Para um design amigável/moderno: altere para `1rem`.
+
+Todos os componentes filhos (cards, inputs, caixas de diálogo) calculam seu arredondamento com base nessa variável central, garantindo coesão visual em 100% das páginas.
+
+### 2.3. Tipografia (Integração com Google Fonts)
+
+O template utiliza nativamente a família de fontes `Geist`. Se o manual da marca do cliente exigir uma fonte clássica como _Montserrat_, _Inter_ ou _Roboto_, a substituição é feita diretamente via Next.js Font Optimization. Isso garante que as fontes sejam carregadas no servidor e não gerem saltos visuais na tela (CLS).
+
+**Como trocar a fonte global do projeto:**
+
+1. Abra o arquivo `src/app/layout.tsx`.
+2. Substitua o import da fonte desejada vinda do pacote oficial do Google:
+
+```tsx
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-geist-sans", // Manter este nome de variável poupa a necessidade de reescrever o CSS base
+});
+```
+
+3. Instancie a nova variável na tag `<body>`:
+
+```tsx
+<body className={`${montserrat.variable} antialiased flex min-h-screen flex-col font-sans overflow-x-hidden`}>
+```
+
+Desta forma, todo o sistema tipográfico do Tailwind (classes como `text-xl`, `font-bold`) adotará a nova fonte automaticamente e sem impacto negativo no carregamento da página.
+
+## 3. Guia de Substituição de Conteúdo
+
+O template utiliza placeholders para agilizar o desenvolvimento. Siga este guia para trocá-los por conteúdo real.
+
+### Logotipos (Header e Footer)
+
+Localize as tags `<div>LOGO</div>` nos componentes de layout e substitua-as pelo componente `<Image />` do Next.js para garantir otimização de carregamento.
+
+### Vídeo de Fundo (Hero Section)
+
+O componente `<HeroSection />` aceita a propriedade `videoSrc`. Passe o caminho do arquivo `.mp4` (ex: `/videos/institucional.mp4`) para ativar o vídeo em loop no fundo da dobra principal.
+
+### Imagens e Thumbs
+
+Onde houver `divs` cinzas com texto centralizado, utilize o componente `<Image />`. Mantenha as classes de `aspect-ratio` (como `aspect-video` ou `aspect-[4/3]`) para garantir que o layout permaneça consistente em dispositivos móveis.
+
+### Textos de Fundo (BackgroundText)
+
+As letras gigantes transparentes (ex: "CONTATO", "DESTAQUES") são componentes `<BackgroundText />`. Eles são puramente estéticos e podem ser alterados ou removidos sem afetar a estrutura da página.
+
+## 4. Configuração do Formulário de Contato
+
+Este boilerplate utiliza **Server Actions** nativas do Next.js e a biblioteca **Nodemailer** para envio de e-mails, eliminando a necessidade de serviços externos pagos.
+
+### Como ativar:
+
+1. No Gmail do cliente, gere uma **Senha de Aplicativo**.
+2. Configure as seguintes variáveis no seu `.env.local`:
+   - `EMAIL_USER`: E-mail que enviará e receberá as mensagens.
+   - `EMAIL_PASS`: Senha de 16 dígitos gerada pelo Google.
+
+## 5. SEO e Rastreamento
+
+### Metadata API
+
+As configurações de SEO estão centralizadas no `layout.tsx` (Global) e nos arquivos `page.tsx` (Específico).
+
+- **Canonical:** Configure a URL canônica para evitar conteúdo duplicado.
+- **OpenGraph:** Substitua o arquivo `public/images/og-image.jpg` pela capa do site para compartilhamento em redes sociais.
+
+### Google Tag Manager
+
+Insira o ID do GTM na variável `NEXT_PUBLIC_GTM_ID` do arquivo `.env.local` para habilitar automaticamente o rastreamento do Google Analytics e pixels de conversão.
+
+## 6. Padronização Técnica
+
+- **Página 404:** Customizada em `src/app/not-found.tsx`.
+- **Loading State:** Tela de carregamento global configurada em `src/app/loading.tsx`.
+- **Sitemap & Robots:** Gerados dinamicamente em `src/app/sitemap.ts` e `src/app/robots.ts`.
+- **Menu Mobile:** Componente isolado e otimizado para performance em `src/components/layout/MobileMenu.tsx`.
+
+---
+
+Desenvolvido por Meta Consultoria.
+
+```
+
+```
