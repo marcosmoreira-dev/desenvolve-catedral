@@ -1,41 +1,62 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { MessageCircle, Mail, Globe, ChevronUp } from "lucide-react";
-import { FaInstagram } from "react-icons/fa";
+import { MessageCircle, Mail, MapPin, ChevronUp, Church, HeartHandshake } from "lucide-react";
+import { FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
 
 export function Footer() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="bg-primary text-primary-foreground pt-16 pb-8 border-t border-primary-foreground/10">
+    <footer className="bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-sky-950">
       <div className="container mx-auto px-4 md:px-8">
-        {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16 relative">
-          {/* Brand Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+          
+          {/* Identificação da Paróquia */}
           <div className="lg:col-span-4 flex flex-col items-start">
-            <div className="bg-foreground text-background font-bold px-5 py-2.5 text-2xl inline-block rounded-md mb-6">
-              LOGO
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-blue-950/80 border border-sky-500/40 rounded-md text-sky-400">
+                <Church className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-serif font-bold text-xl text-slate-100 leading-none">
+                  Catedral
+                </h3>
+                <span className="text-xs font-serif text-sky-400 tracking-widest uppercase font-medium">
+                  São João Batista
+                </span>
+              </div>
             </div>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-sm mb-6">
-              Transformando resultados com estratégias inteligentes e escaláveis
-              para o seu negócio decole de verdade.
+
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mb-6 font-light">
+              Um espaço de acolhimento, fé e oração no coração de nossa cidade. Unificados na Palavra e nos Sacramentos.
             </p>
-            {/* Social Icons */}
+
+            {/* Redes Sociais */}
             <div className="flex gap-3">
               {[
-                { icon: FaInstagram, label: "Instagram" },
-                { icon: MessageCircle, label: "WhatsApp" },
-                { icon: Mail, label: "E-mail" },
-                { icon: Globe, label: "Website" },
+                { icon: FaInstagram, label: "Instagram", href: "https://instagram.com" },
+                { icon: FaFacebookF, label: "Facebook", href: "https://facebook.com" },
+                { icon: FaYoutube, label: "YouTube", href: "https://youtube.com" },
+                { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/" },
+                { icon: Mail, label: "E-mail", href: "mailto:contato@catedral.org" },
               ].map((Social, index) => (
                 <Link
                   key={index}
-                  href="#"
+                  href={Social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={Social.label}
-                  className="p-2.5 bg-background border border-border rounded-full text-muted-foreground hover:text-primary hover:border-primary hover:-translate-y-1 transition-all duration-300 shadow-sm"
+                  className="p-2.5 bg-slate-900 border border-slate-800 rounded-full text-slate-400 hover:text-sky-400 hover:border-sky-500/50 hover:-translate-y-1 transition-all duration-300 shadow-sm"
                 >
                   <Social.icon className="w-4 h-4" />
                 </Link>
@@ -43,100 +64,108 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links Columns */}
+          {/* Links Rápidos */}
           <div className="lg:col-span-2 lg:col-start-6">
-            <h4 className="text-foreground font-semibold mb-6">Serviços</h4>
-            <ul className="space-y-4 text-sm text-primary-foreground/80">
-              {["Consultoria", "Assessoria", "Treinamentos", "Diagnóstico"].map(
-                (item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      className="hover:text-primary hover:underline underline-offset-4 transition-all"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="text-foreground font-semibold mb-6">Empresa</h4>
-            <ul className="space-y-4 text-sm text-primary-foreground/80">
-              <li>
-                <Link
-                  href="/quem-somos"
-                  className="hover:text-primary hover:underline underline-offset-4 transition-all"
-                >
-                  Quem somos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contato"
-                  className="hover:text-primary hover:underline underline-offset-4 transition-all"
-                >
-                  Contato
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-primary hover:underline underline-offset-4 transition-all"
-                >
-                  Carreiras
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="text-foreground font-semibold mb-6">
-              Contato e Local
+            <h4 className="font-serif font-semibold text-slate-100 mb-6 tracking-wide border-b border-slate-800 pb-2">
+              A Catedral
             </h4>
-            <ul className="space-y-4 text-sm text-primary-foreground/80">
-              <li className="leading-relaxed">
-                R. Passo da Pátria, 156, Sala 217
-                <br />
-                Bloco E - São Domingos
-                <br />
-                Niterói - RJ
+            <ul className="space-y-3 text-sm text-slate-400 font-light">
+              <li>
+                <Link href="/sobre" className="hover:text-sky-400 transition-colors">
+                  Nossa História
+                </Link>
               </li>
-              <li className="pt-2 border-t border-border/50">
-                <span className="block font-medium text-foreground mb-1">
-                  CNPJ
+              <li>
+                <Link href="/noticias" className="hover:text-sky-400 transition-colors">
+                  Notícias & Informes
+                </Link>
+              </li>
+              <li>
+                <Link href="/eventos" className="hover:text-sky-400 transition-colors">
+                  Agenda Paroquial
+                </Link>
+              </li>
+              <li>
+                <Link href="/pastorais" className="hover:text-sky-400 transition-colors">
+                  Pastorais e Serviços
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Vida Sacramental */}
+          <div className="lg:col-span-2">
+            <h4 className="font-serif font-semibold text-slate-100 mb-6 tracking-wide border-b border-slate-800 pb-2">
+              Sacramentos
+            </h4>
+            <ul className="space-y-3 text-sm text-slate-400 font-light">
+              <li>
+                <Link href="#horarios" className="hover:text-sky-400 transition-colors">
+                  Horários de Missa
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="hover:text-sky-400 transition-colors">
+                  Confissões
+                </Link>
+              </li>
+              <li>
+                <Link href="/pastorais/catequese" className="hover:text-sky-400 transition-colors">
+                  Batismo
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="hover:text-sky-400 transition-colors">
+                  Matrimônio
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Secretaria & Localização */}
+          <div className="lg:col-span-3">
+            <h4 className="font-serif font-semibold text-slate-100 mb-6 tracking-wide border-b border-slate-800 pb-2">
+              Secretaria Paroquial
+            </h4>
+            <ul className="space-y-4 text-sm text-slate-400 font-light">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
+                <span className="leading-relaxed">
+                  Praça Dom Pedro II, S/N - Centro
+                  <br />
+                  CEP 24000-000 | Niterói - RJ
                 </span>
-                99.999.999/9999-99
+              </li>
+              <li className="flex items-start gap-3 pt-2 border-t border-slate-900">
+                <HeartHandshake className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
+                <div>
+                  <span className="block font-medium text-slate-300">Atendimento:</span>
+                  Segunda a Sexta: 08h às 17h
+                  <br />
+                  Sábado: 08h às 12h
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-border text-sm text-muted-foreground gap-4">
-          <p>
-            &copy; {new Date().getFullYear()} LOGO. Todos os direitos
-            reservados.
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-800 text-xs text-slate-500 gap-4">
+          <p className="text-center md:text-left">
+            &copy; {year ?? 2026} Catedral São João Batista. Todos os direitos reservados.
           </p>
+
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/privacidade" className="hover:text-slate-300 transition-colors">
               Política de Privacidade
             </Link>
-            <span className="hidden md:inline-block">|</span>
-            <p className="hidden md:block">
-              Site desenvolvido por{" "}
-              <span className="font-semibold text-foreground">
-                Meta Consultoria
-              </span>
-            </p>
+            <span className="hidden md:inline-block text-slate-800">|</span>
             <button
               onClick={scrollToTop}
-              className="ml-4 p-2.5 bg-foreground text-background rounded-full hover:bg-primary transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              className="p-2.5 bg-slate-900 border border-slate-800 text-slate-300 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-sky-400"
               aria-label="Voltar ao topo"
             >
-              <ChevronUp className="w-5 h-5" />
+              <ChevronUp className="w-4 h-4" />
             </button>
           </div>
         </div>

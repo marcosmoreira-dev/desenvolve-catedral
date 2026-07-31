@@ -3,101 +3,99 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==========================================================
-   DESIGN TOKENS
+   DESIGN TOKENS - CATEDRAL SÃO JOÃO BATISTA (AZUL MARIANO)
 ========================================================== */
 
 :root {
   /* Radius */
   --radius: 0.75rem;
 
-  /* Background */
-  --background: #f8f6f2;
-  --foreground: #16202b;
+  /* Background & Surface */
+  --background: #f8fafc; /* Slate 50 sutil e limpo */
+  --foreground: #0f172a; /* Slate 900 */
 
-  /* Surface */
   --card: #ffffff;
-  --card-foreground: #16202b;
+  --card-foreground: #0f172a;
 
   --popover: #ffffff;
-  --popover-foreground: #16202b;
+  --popover-foreground: #0f172a;
 
-  /* Primary */
-  --primary: #0d1b2a;
+  /* Primary (Azul Marinho Profundo da Catedral) */
+  --primary: #0a1329;
   --primary-foreground: #ffffff;
 
   /* Secondary */
-  --secondary: #e9e2d4;
-  --secondary-foreground: #16202b;
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0f172a;
 
-  /* Accent */
-  --accent: #c8a75a;
+  /* Accent (Azul Vibrante da Logo) */
+  --accent: #0077ff;
   --accent-foreground: #ffffff;
 
   /* Neutral */
-  --muted: #f3f2ef;
-  --muted-foreground: #6b7280;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
 
-  /* UI */
-  --border: #e5e7eb;
+  /* UI & Borders */
+  --border: #e2e8f0;
   --input: #ffffff;
-  --ring: #c8a75a;
+  --ring: #0077ff;
 
   /* Status */
   --destructive: #dc2626;
 
   /* Sidebar */
-  --sidebar: #0d1b2a;
+  --sidebar: #0a1329;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #c8a75a;
+  --sidebar-primary: #0077ff;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1b263b;
+  --sidebar-accent: #132347;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255,255,255,.08);
-  --sidebar-ring: #c8a75a;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #0077ff;
 
-  /* Custom Palette */
-  --navy: #0d1b2a;
-  --navy-light: #1b263b;
-  --gold: #c8a75a;
-  --gold-light: #e2c785;
-  --beige: #f5f1e8;
-  --stone: #ece6db;
+  /* Custom Identity Palette */
+  --cathedral-navy: #0a1329;      /* Fundo escuro / Títulos */
+  --cathedral-navy-light: #132347;/* Cards escuros / Hovers */
+  --cathedral-blue: #0077ff;      /* Azul vibrante principal */
+  --cathedral-blue-light: #38bdf8;/* Destaques sutis / Cyan-Sky */
+  --cathedral-ice: #f0f7ff;       /* Seções claras em tom suave */
 }
 
 .dark {
-  --background: #08111c;
-  --foreground: #f8f6f2;
+  --background: #060a12;
+  --foreground: #f8fafc;
 
-  --card: #0f1a27;
-  --card-foreground: #f8f6f2;
+  --card: #0b1322;
+  --card-foreground: #f8fafc;
 
-  --popover: #0f1a27;
-  --popover-foreground: #f8f6f2;
+  --popover: #0b1322;
+  --popover-foreground: #f8fafc;
 
-  --primary: #c8a75a;
-  --primary-foreground: #08111c;
+  --primary: #0077ff;
+  --primary-foreground: #ffffff;
 
-  --secondary: #16202b;
+  --secondary: #132347;
   --secondary-foreground: #ffffff;
 
-  --accent: #d6b86e;
-  --accent-foreground: #08111c;
+  --accent: #38bdf8;
+  --accent-foreground: #060a12;
 
-  --muted: #132131;
-  --muted-foreground: #9ca3af;
+  --muted: #0f1b30;
+  --muted-foreground: #94a3b8;
 
-  --border: rgba(255,255,255,.08);
-  --input: #16202b;
-  --ring: #d6b86e;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #0b1322;
+  --ring: #38bdf8;
 
-  --sidebar: #08111c;
+  --sidebar: #060a12;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #d6b86e;
-  --sidebar-primary-foreground: #08111c;
-  --sidebar-accent: #16202b;
+  --sidebar-primary: #38bdf8;
+  --sidebar-primary-foreground: #060a12;
+  --sidebar-accent: #132347;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255,255,255,.08);
-  --sidebar-ring: #d6b86e;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #38bdf8;
 }
 
 /* ==========================================================
@@ -143,6 +141,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Variáveis de atalho do Tailwind para a nova paleta */
+  --color-cathedral-navy: var(--cathedral-navy);
+  --color-cathedral-blue: var(--cathedral-blue);
+  --color-cathedral-ice: var(--cathedral-ice);
 }
 
 /* ==========================================================
@@ -171,9 +174,18 @@
   h5,
   h6 {
     font-family: var(--font-cormorant), serif;
-    color: var(--navy);
+    color: var(--cathedral-navy);
     font-weight: 700;
     line-height: 1.1;
+  }
+
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    color: #f8fafc;
   }
 
   h1 {
@@ -219,66 +231,72 @@
     @apply mx-auto mb-14 max-w-3xl text-center text-lg text-muted-foreground;
   }
 
-  .gold-divider {
+  /* Divisor em Azul da Catedral */
+  .blue-divider {
     width: 80px;
     height: 3px;
     margin: 0 auto;
     border-radius: 999px;
-    background: var(--gold);
+    background: var(--cathedral-blue);
+    box-shadow: 0 0 12px rgba(0, 119, 255, 0.4);
   }
 
   .glass {
-    background: rgba(255,255,255,.75);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
   }
 
   .hero-overlay {
     background:
       linear-gradient(
-        rgba(10,20,35,.78),
-        rgba(10,20,35,.62)
+        rgba(6, 10, 18, 0.82),
+        rgba(10, 19, 41, 0.70)
       );
   }
 
   .card-elegant {
     @apply rounded-2xl bg-white border border-border p-6 transition-all duration-300;
-    box-shadow: 0 8px 35px rgba(0,0,0,.05);
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.04);
   }
 
   .card-elegant:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 50px rgba(0,0,0,.12);
+    box-shadow: 0 18px 45px rgba(0, 119, 255, 0.08);
+    border-color: rgba(0, 119, 255, 0.3);
   }
 
-  .btn-gold {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-medium transition-all duration-300;
-    background: var(--gold);
+  /* Botão Principal - Azul Catedral */
+  .btn-blue {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-medium transition-all duration-300 shadow-md;
+    background: var(--cathedral-blue);
     color: white;
   }
 
-  .btn-gold:hover {
-    background: #b8933d;
+  .btn-blue:hover {
+    background: #0062d6;
     transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 119, 255, 0.3);
   }
 
   .btn-outline-light {
     @apply inline-flex items-center justify-center rounded-full border px-6 py-3 font-medium transition-all duration-300;
-    border-color: rgba(255,255,255,.45);
+    border-color: rgba(255, 255, 255, 0.45);
     color: white;
   }
 
   .btn-outline-light:hover {
-    background: rgba(255,255,255,.12);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--cathedral-blue-light);
   }
 
   .btn-dark {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 transition-all;
-    background: var(--navy);
+    background: var(--cathedral-navy);
     color: white;
   }
 
   .btn-dark:hover {
-    background: var(--navy-light);
+    background: var(--cathedral-navy-light);
   }
 }
 
@@ -288,36 +306,36 @@
 
 @layer utilities {
 
-  .text-gold {
-    color: var(--gold);
+  .text-cathedral-blue {
+    color: var(--cathedral-blue);
   }
 
-  .bg-gold {
-    background: var(--gold);
+  .bg-cathedral-blue {
+    background: var(--cathedral-blue);
   }
 
-  .bg-beige {
-    background: var(--beige);
+  .bg-cathedral-ice {
+    background: var(--cathedral-ice);
   }
 
-  .bg-navy {
-    background: var(--navy);
+  .bg-cathedral-navy {
+    background: var(--cathedral-navy);
   }
 
   .bg-section {
     background: linear-gradient(
       to bottom,
-      #f8f6f2,
+      #f8fafc,
       #ffffff
     );
   }
 
   .shadow-soft {
-    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
   }
 
-  .shadow-gold {
-    box-shadow: 0 10px 35px rgba(200,167,90,.28);
+  .shadow-blue-glow {
+    box-shadow: 0 10px 35px rgba(0, 119, 255, 0.25);
   }
 
   .transition-default {
@@ -330,7 +348,7 @@
 }
 
 /* ==========================================================
-   SCROLLBAR
+   SCROLLBAR & SELECTION
 ========================================================== */
 
 ::-webkit-scrollbar {
@@ -338,23 +356,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f2f2f2;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--cathedral-blue);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8933d;
+  background: #005fcc;
 }
 
-/* ==========================================================
-   SELECTION
-========================================================== */
-
 ::selection {
-  background: var(--gold);
+  background: var(--cathedral-blue);
   color: white;
 }

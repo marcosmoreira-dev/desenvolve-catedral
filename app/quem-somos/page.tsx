@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { SectionBadge } from "@/components/common/SectionBadge";
 import { StatCard } from "@/components/common/StatCard";
 import { TestimonialCard } from "@/components/common/TestimonialCard";
-import { Newsletter } from "@/components/sections/Newsletter";
 
 export default function QuemSomosPage() {
   return (
@@ -86,9 +85,6 @@ export default function QuemSomosPage() {
           />
         </div>
       </section>
-
-      {/* 6. NEWSLETTER */}
-      <Newsletter />
     </div>
   );
 }

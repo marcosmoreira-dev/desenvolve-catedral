@@ -22,16 +22,16 @@ export function PostCard({ post }: PostCardProps) {
     : "";
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
       {/* Imagem */}
-      <Link href={`/blog/${post.slug.current}`}>
-        <div className="relative h-60 overflow-hidden bg-slate-200">
+      <Link href={`/noticias/${post.slug.current}`}>
+        <div className="relative aspect-16/10 overflow-hidden">
           {post.mainImage ? (
             <Image
               src={urlFor(post.mainImage).width(800).height(500).url()}
               alt={post.title}
               fill
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="flex h-full items-center justify-center text-slate-500">
@@ -44,18 +44,18 @@ export function PostCard({ post }: PostCardProps) {
       {/* Conteúdo */}
       <div className="flex flex-col gap-4 p-6">
         {category && (
-          <span className="w-fit rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-blue-700">
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
             {category.title}
           </span>
         )}
 
-        <Link href={`/blog/${post.slug.current}`}>
+        <Link href={`/noticias/${post.slug.current}`}>
           <h2 className="line-clamp-2 text-2xl font-bold text-slate-900 transition-colors group-hover:text-blue-700">
             {post.title}
           </h2>
         </Link>
 
-        <p className="line-clamp-3 leading-relaxed text-slate-600">
+        <p className="line-clamp-3 leading-relaxed text-muted-foreground">
           {post.excerpt}
         </p>
 
@@ -76,10 +76,10 @@ export function PostCard({ post }: PostCardProps) {
         </div>
 
         <Link
-          href={`/blog/${post.slug.current}`}
-          className="mt-2 inline-flex items-center gap-2 font-semibold text-blue-700 transition hover:gap-3"
+          href={`/noticias/${post.slug.current}`}
+          className="inline-flex items-center gap-2 font-medium text-primary transition-all group-hover:gap-3"
         >
-          Ler artigo
+          Continuar lendo
           <ArrowRight size={18} />
         </Link>
       </div>
