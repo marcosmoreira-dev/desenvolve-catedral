@@ -1,5 +1,5 @@
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2026-06-19'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2026-07-31'
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -13,9 +13,8 @@ export const projectId = assertValue(
 
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
-    // throw new Error(errorMessage)
-    console.warn('⚠️ ' + errorMessage + ' - Usando valor temporário')
-    return (errorMessage.includes('DATASET') ? 'production' : '11t8dx2l') as T
+    throw new Error(errorMessage)
   }
+
   return v
 }
