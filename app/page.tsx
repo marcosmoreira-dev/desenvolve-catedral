@@ -1,37 +1,41 @@
-import { HeroSection } from "@/components/home/HeroSection";
-import { MassScheduleSection } from "@/components/home/MassScheduleSection";
-import { AboutSection } from "@/components/home/AboutSection";
-import { EventSection } from "@/components/home/EventsSection";
-import { NewsSection } from "@/components/home/NewsSection";
-import { PastoralSection } from "@/components/home/PastoralSection";
-import { DonationBanner } from "@/components/home/DonationBanner";
-import { CTASection } from "@/components/home/CTASection";
+import { client } from '@/sanity/lib/client';
+import { 
+  postsQuery, 
+  eventsQuery, 
+  massSchedulesQuery, 
+  pastoralsQuery 
+} from '@/sanity/lib/queries';
 
-export default function Home() {
+import { HeroSection } from '@/components/home/HeroSection';
+import { MassScheduleSection } from '@/components/home/MassScheduleSection';
+import { NewsSection } from '@/components/home/NewsSection';
+import { EventSection } from '@/components/home/EventsSection';
+import { AboutSection } from '@/components/home/AboutSection';
+import { PastoralSection } from '@/components/home/PastoralSection';
+import { DonationBanner } from '@/components/home/DonationBanner';
+import { CTASection } from '@/components/home/CTASection';
+
+// Garante dados sempre atualizados (ou ajuste o ISR com revalidate conforme preferir)
+export const revalidate = 60; // atualiza a cada 60 segundos
+
+export default async function Home() {
+  // Busca os dados do Sanity em paralelo
+  const [posts, events, massSchedules, pastorals] = await Promise.all([
+    client.fetch(postsQuery),
+    client.fetch(eventsQuery),
+    client.fetch(massSchedulesQuery),
+    client.fetch(pastoralsQuery),
+  ]);
+
   return (
-    <main className="min-h-screen bg-background antialiased selection:bg-cathedral-blue selection:text-white">
-      {/* 1. Hero / Boas-vindas (Escuro) */}
+    <main className="min-h-screen bg-background">
       <HeroSection />
-
-      {/* 2. Horários de Missa (Claro/Tons de gelo) */}
-      <MassScheduleSection />
-
-      {/* 3. História & Sobre a Catedral (Branco) */}
+      <MassScheduleSection schedules={massSchedules} />
+      <NewsSection posts={posts} />
+      <EventSection events={events} />
       <AboutSection />
-
-      {/* 4. Agenda de Eventos (Gelo suave) */}
-      <EventSection />
-
-      {/* 5. Últimas Notícias (Branco) */}
-      <NewsSection />
-
-      {/* 6. Pastorais e Movimentos (Branco) */}
-      <PastoralSection />
-
-      {/* 7. Dízimo & Ofertas (Escuro / Destaque) */}
+      <PastoralSection pastorals={pastorals} />
       <DonationBanner />
-
-      {/* 8. Contato / Atendimento (Azul Marinho Catedral) */}
       <CTASection />
     </main>
   );
